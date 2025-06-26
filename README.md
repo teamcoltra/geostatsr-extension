@@ -32,7 +32,7 @@ GeoStatsr Extension is a browser extension that automatically sends your GeoGues
 
 ## How to Use
 1. Click the GeoStatsr icon in your browser toolbar to open the popup.
-2. Enter your GeoStatsr server API root URL (e.g., `http://localhost:62825`). Optionally, enter your private key if your server requires one.
+2. Enter your GeoStatsr server API root URL (Almost always `http://localhost:62826`). Optionally, enter your private key if your server requires one.
 3. Click **Save**. The extension will check your server connection and let you know if it worked.
 4. When you finish a GeoGuessr game, your stats will be sent automatically to your server.
 5. You can also use the popup to manually send your `_ncfa` cookie or force a stat collection.

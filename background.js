@@ -14,7 +14,7 @@ async function getNcfaCookie() {
 async function getCfg() {
   return new Promise(res =>
     chrome.storage.local.get(
-      { apiRoot: 'http://localhost:62825', apiKey: '' },
+      { apiRoot: 'http://localhost:62826', apiKey: '' },
       cfg => res(cfg)
     )
   );

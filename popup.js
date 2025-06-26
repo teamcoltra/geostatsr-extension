@@ -7,7 +7,7 @@ const collectNow  = document.getElementById('collectNow');
 
 /* load saved settings */
 chrome.storage.local.get(
-  { apiRoot: 'http://localhost:62825', apiKey: '' },
+  { apiRoot: 'http://localhost:62826', apiKey: '' },
   data => {
     rootInput.value = data.apiRoot;
     keyInput.value  = data.apiKey;
