@@ -1,0 +1,72 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <meta charset="utf-8" />
+  <title>GeoStatsr settings</title>
+
+  <style>
+    /* =====  Neo-brutalist palette  ===== */
+    :root {
+      --br-green:    #b4ff35;
+      --br-green-dk: #8bd300;
+      --br-bg:       #111;
+      --br-text:     #fff;
+    }
+    * { box-sizing:border-box; font-family:"IBM Plex Sans",sans-serif; }
+
+    body {
+      margin:10px; width:260px;
+      background:var(--br-bg); color:var(--br-text);
+    }
+
+    label         { font-size:.85rem; display:block; }
+    input[type=text] {
+      width:100%; margin-top:4px; padding:6px 8px;
+      background:#222; color:var(--br-text);
+      border:2px solid #000; outline:none;
+    }
+    input[type=text]:focus { border-color:var(--br-green); }
+
+    small { display:block; margin-top:4px; color:#aaa; min-height:1em; }
+    hr    { margin:18px -10px 12px; border:none; border-top:2px solid #000; }
+
+    /* —— buttons —— */
+    .br-btn{
+      display:block; width:100%; margin-top:8px; padding:10px 0;
+      color:#000; background:var(--br-green); font-weight:700; text-align:center;
+      border:2px solid #000; border-bottom:4px solid #000; border-right:4px solid #000;
+      cursor:pointer;
+      transition:transform .05s, border-width .05s, background .12s;
+    }
+    .br-btn:hover, .br-btn:focus-visible { background:var(--br-green-dk);}
+    .br-btn:active{
+      transform:translate(2px,2px);
+      border-bottom-width:2px; border-right-width:2px;
+    }
+    #save{margin-top:10px;}
+  </style>
+</head>
+
+<body>
+  <!-- root URL -->
+  <label>API root&nbsp;URL
+    <input id="root" type="text" placeholder="http://localhost:62825">
+  </label>
+
+  <!-- optional private key -->
+  <label style="margin-top:14px">
+    Private&nbsp;key&nbsp;<small>(optional)</small>
+    <input id="pkey" type="text" placeholder="leave blank if none">
+  </label>
+
+  <button id="save" class="br-btn">Save</button>
+  <small id="status"></small>
+
+  <hr>
+
+  <button id="sendCookie" class="br-btn">Update <i>_ncfa</i></button>
+  <button id="collectNow" class="br-btn">Force Get Stats</button>
+
+  <script src="popup.js"></script>
+</body>
+</html>
