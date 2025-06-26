@@ -34,7 +34,7 @@ saveBtn.addEventListener('click', () => {
           showStatus('Saved but this doesn\'t seem like a GeoStatsr server');
         }
       } else {
-        showStatus('Saved but GeoStatsr server seems offline');
+        showStatus('Saved!');
       }
     });
   });
@@ -46,7 +46,7 @@ sendCookie.addEventListener('click', () => {
     if (response.success) {
       showStatus(response.message);
     } else {
-      showStatus(`Error: ${response.error}`);
+      showStatus(`This system is buggy right now, you can usually ignore most errors. Just try running collect now anyway. Error: ${response.error}`);
     }
   });
 });
@@ -54,7 +54,7 @@ collectNow.addEventListener('click', () => {
   collectNow.disabled = true;
   chrome.runtime.sendMessage({ type: 'COLLECT_NOW' }, () => {
     collectNow.disabled = false;
-    showStatus('Collect triggered', 1500);
+    showStatus('Collect triggered, may take a few minutes to start populating', 1500);
   });
 });
 
