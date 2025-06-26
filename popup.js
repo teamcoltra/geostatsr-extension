@@ -34,7 +34,7 @@ saveBtn.addEventListener('click', () => {
           showStatus('Saved but this doesn\'t seem like a GeoStatsr server');
         }
       } else {
-        showStatus('Saved!');
+        showStatus('Saved! Double check that the server is running before sending NCFA');
       }
     });
   });
