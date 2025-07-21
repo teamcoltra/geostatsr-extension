@@ -1,19 +1,14 @@
 {
   "name": "GeoStatsr",
   "description": "Keep your GeoStatsr server up-to-date by automatically sending your GeoGuessr stats to it when your game ends.",
-  "version": "1.0.0",
+  "version": "1.5.0",
   "manifest_version": 3,
   "action": {
     "default_popup": "popup.html",
     "default_title": "GeoStatsr settings"
   },
-  "permissions": [
-    "cookies",
-    "storage"
-  ],
-  "host_permissions": [
-    "https://www.geoguessr.com/*"
-  ],
+  "permissions": ["cookies", "storage"],
+  "host_permissions": ["https://www.geoguessr.com/*"],
   "background": {
     "service_worker": "background.js",
     "type": "module"

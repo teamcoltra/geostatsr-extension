@@ -1,38 +1,36 @@
 <!DOCTYPE html>
 <html>
 <head>
-  <meta charset="utf-8" />
-  <title>GeoStatsr settings</title>
-
+  <meta charset="utf-8</html></head>" />
+  <title>GeoStatsr Extension</title>
   <style>
-    /* =====  Neo-brutalist palette  ===== */
     :root {
       --br-green:    #b4ff35;
       --br-green-dk: #8bd300;
       --br-bg:       #111;
       --br-text:     #fff;
+      --br-red:      #ff5555;
     }
     * { box-sizing:border-box; font-family:"IBM Plex Sans",sans-serif; }
 
     body {
-      margin:10px; width:260px;
+      margin:10px; width:280px;
       background:var(--br-bg); color:var(--br-text);
     }
 
-    label         { font-size:.85rem; display:block; }
-    input[type=text] {
-      width:100%; margin-top:4px; padding:6px 8px;
-      background:#222; color:var(--br-text);
-      border:2px solid #000; outline:none;
+    .hidden { display: none !important; }
+
+    .centered {
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      justify-content: center;
+      min-height: 120px;
+      text-align: center;
     }
-    input[type=text]:focus { border-color:var(--br-green); }
 
-    small { display:block; margin-top:4px; color:#aaa; min-height:1em; }
-    hr    { margin:18px -10px 12px; border:none; border-top:2px solid #000; }
-
-    /* —— buttons —— */
     .br-btn{
-      display:block; width:100%; margin-top:8px; padding:10px 0;
+      display:block; width:100%; margin-top:10px; padding:10px 0;
       color:#000; background:var(--br-green); font-weight:700; text-align:center;
       border:2px solid #000; border-bottom:4px solid #000; border-right:4px solid #000;
       cursor:pointer;
@@ -43,30 +41,108 @@
       transform:translate(2px,2px);
       border-bottom-width:2px; border-right-width:2px;
     }
-    #save{margin-top:10px;}
+
+    #advancedSection {
+      margin-top: 18px;
+      padding: 10px;
+      background: #222;
+      border-radius: 6px;
+      border: 1px solid #333;
+    }
+    #advancedSection label {
+      font-size: .85rem;
+      display: block;
+      margin-bottom: 6px;
+    }
+    #advancedSection input[type=text] {
+      width: 100%;
+      margin-top: 4px;
+      padding: 6px 8px;
+      background: #222;
+      color: var(--br-text);
+      border: 2px solid #000;
+      outline: none;
+    }
+    #advancedSection input[type=text]:focus { border-color: var(--br-green); }
+    #collecting-animation {
+      margin: 12px 0 0 0;
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+    }
+    .dot-anim {
+      margin-top: 8px;
+      display: flex;
+      gap: 4px;
+    }
+    .dot-anim span {
+      width: 10px;
+      height: 10px;
+      border-radius: 50%;
+      background: var(--br-green);
+      opacity: 0.6;
+      animation: bounce 1.2s infinite;
+      display: inline-block;
+    }
+    .dot-anim span:nth-child(2) { animation-delay: 0.2s; }
+    .dot-anim span:nth-child(3) { animation-delay: 0.4s; }
+    @keyframes bounce {
+      0%, 80%, 100% { transform: scale(1); opacity: 0.6; }
+      40% { transform: scale(1.4); opacity: 1; }
+    }
+    #status, #api-message {
+      margin-top: 10px;
+      min-height: 1.2em;
+      color: var(--br-green);
+      font-size: 0.98em;
+      text-align: center;
+      word-break: break-word;
+    }
+    #login-blocked {
+      color: var(--br-red);
+      font-weight: 600;
+      font-size: 1.1em;
+      margin-top: 20px;
+    }
   </style>
 </head>
-
 <body>
-  <!-- root URL -->
-  <label>GeoStatsr URL
-	<small>Almost always http://localhost:62826</small>
-    <input id="root" type="text" placeholder="http://localhost:62826">
-  </label>
+  <!-- Login-blocked state -->
+  <div id="login-blocked" class="centered hidden">
+    <div id="login-message" style="font-size:1.3em; font-weight:700; color:#ff5555; margin:20px 0;">
+      Please log into GeoGuessr.<br>If you have, reload the page.
+    </div>
+    <div id="updating-message" style="font-size:1.2em; font-weight:600; color:#b4ff35; margin:20px 0; display:none;">
+      Updating...
+    </div>
+  </div>
 
-  <!-- optional private key -->
-  <label style="margin-top:14px">
-    Private&nbsp;key&nbsp;<small>(optional)</small>
+  <!-- Main UI (shown if logged in) -->
+  <div id="main-ui" class="hidden">
+    <div class="centered">
+      <div id="greeting" style="font-size:1.1em; font-weight:600; margin-bottom:10px;"></div>
+      <button id="update-ncfa" class="br-btn">Update your NCFA token</button>
+      <button id="collect-stats" class="br-btn">Collect stats now</button>
+      <div id="collecting-animation" class="hidden">
+        <span>Collecting data</span>, this may take 1-5 minutes especially on first run...</span>
+        <div class="dot-anim">
+          <span></span><span></span><span></span>
+        </div>
+      </div>
+      <div id="api-message"></div>
+    </div>
+  </div>
+
+  <!-- Advanced settings (hidden by default) -->
+  <button id="advancedBtn" class="br-btn" style="margin-top:18px; display:none;">Advanced</button>
+  <div id="advancedSection" class="hidden">
+    <label for="root">GeoStatsr URL</label>
+    <input id="root" type="text" placeholder="https://geostatsr.com" value="https://geostatsr.com">
+    <label for="pkey" style="margin-top:10px;">Private key <small>(optional)</small></label>
     <input id="pkey" type="text" placeholder="leave blank if none">
-  </label>
-
-  <button id="save" class="br-btn">Save</button>
-  <small id="status"></small>
-
-  <hr>
-
-  <button id="sendCookie" class="br-btn">Update <i>_ncfa</i></button>
-  <button id="collectNow" class="br-btn">Force Get Stats</button>
+    <button id="save" class="br-btn" style="margin-top:10px;">Save</button>
+    <div id="status"></div>
+  </div>
 
   <script src="popup.js"></script>
 </body>
